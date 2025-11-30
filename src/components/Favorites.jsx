@@ -1,23 +1,26 @@
-const favoriteList = ["Gustavo", "kilian", "Pepito"];
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 export const Favorites = () => {
+  const { store, dispatch } = useGlobalReducer();
+
+  const favorites = store.favoriteList || [];
+
   return (
     <>
       <div className="dropdown">
-        <a
+        <button
           className="btn btn-primary dropdown-toggle"
-          href="#"
-          role="button"
+          type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Favorites
-        </a>
+          Favorites ({favorites.length})
+        </button>
 
         <ul className="dropdown-menu">
-          {favoriteList.map((item) => (
-            <li>
+          {favorites.map((item, index) => (
+            <li key={item.name || index}>
               <a className="dropdown-item" href="#">
-                {item}
+                {item.name || item}
               </a>
             </li>
           ))}
