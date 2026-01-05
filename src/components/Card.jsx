@@ -1,18 +1,37 @@
-export const Card = ({ imgURL, title, children }) => {
+import { Link } from "react-router-dom";
+
+
+export const Card = ({ imageSrc, name, onFavorite, category, itemId }) => {
   return (
     <>
-      <div className="card">
-        <img src={imgURL} className="card-img-top" alt="Luke Skywalker" />
+      <div className="card" style={{ minWidth: "18rem" }}>
+        <img
+          src={imageSrc}
+          alt={name}
+          className="card-img-top"
+          style={{
+            height: "200px",
+            objectFit: "cover"
+          }}
+        />
         <div className="card-body">
-          <h5 className="card-title">{title}</h5>
-          {children}
-          <div className="d-flex gap-5">
-            <a href="#" className="btn btn-primary me-5">
-              Learn more
-            </a>
-            <a href="like" className="btn btn-primary">
+          <h5 className="card-title">{name}</h5>
+
+          <div className="d-flex justify-content-between">
+            <Link
+              to={`/single/${category}/${itemId}`}
+              className="btn btn-primary"
+            >
+              Ver Más
+            </Link>
+
+            <button
+              className="btn btn-outline-warning"
+              onClick={onFavorite}
+            >
               <i className="fa-regular fa-bookmark"></i>
-            </a>
+            </button>
+
           </div>
         </div>
       </div>

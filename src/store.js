@@ -9,7 +9,7 @@ export const initialStore = () => {
 };
 
 export default function storeReducer(store, action = {}) {
-  switch (action.type) {
+   switch (action.type) {
     case "add_task":
       const { id, color } = action.payload;
 
@@ -19,14 +19,17 @@ export default function storeReducer(store, action = {}) {
           todo.id === id ? { ...todo, background: color } : todo
         ),
       };
-    case "add_Favorite":
+    case "add_favorite":
       const { name } = action.payload;
-      return { ...store, favoriteList: [...store.favoriteList, name] };
+      return { ...store, favoriteList: [...store.favoriteList, action.payload], };
     case "remove_favorite":
       const favoriteList = store.favoriteList.filter(
         (item) => item !== action.payload.name
       );
-      return { ...store, favoriteList: favoriteList };
+      return { ...store, favoriteList: store.favoriteList.filter(
+        (item) => item.name !== action.payload.name
+      ),
+    };
     case "update_characterList":
       const characterList = action.payload;
       return { ...store, characterList };

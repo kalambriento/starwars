@@ -1,31 +1,49 @@
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+
 export const Favorites = () => {
   const { store, dispatch } = useGlobalReducer();
 
-  const favorites = store.favoriteList || [];
-
   return (
-    <>
-      <div className="dropdown">
-        <button
-          className="btn btn-primary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Favorites ({favorites.length})
-        </button>
+    <div className="dropdown">
+      {/* BOTÓN */}
+      <button
+        className="btn btn-outline-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Favorites ({store.favoriteList.length})
+      </button>
 
-        <ul className="dropdown-menu">
-          {favorites.map((item, index) => (
-            <li key={item.name || index}>
-              <a className="dropdown-item" href="#">
-                {item.name || item}
-              </a>
+      {/* LISTA */}
+      <ul className="dropdown-menu dropdown-menu-end">
+        {store.favoriteList.length === 0 ? (
+          <li className="dropdown-item text-muted">
+            No favorites yet
+          </li>
+        ) : (
+          store.favoriteList.map((item, index) => (
+            <li
+              key={index}
+              className="dropdown-item d-flex justify-content-between align-items-center"
+            >
+              <span>{item.name}</span>
+
+              <button
+                className="btn btn-sm btn-outline-secondary ms-2"
+                onClick={() =>
+                  dispatch({
+                    type: "remove_favorite",
+                    payload: { name: item.name },
+                  })
+                }
+              >
+                <span style={{ color: "red", fontWeight: "bold" }}>✕</span>
+              </button>
             </li>
-          ))}
-        </ul>
-      </div>
-    </>
+          ))
+        )}
+      </ul>
+    </div>
   );
 };

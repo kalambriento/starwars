@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import starWarsLogo from "../assets/img/iconosw.png";
 import { Favorites } from "./Favorites";
@@ -16,10 +15,9 @@ export const Navbar = () => {
             style={{ height: "100px", marginRight: "10px" }}
           />
         </Link>
+
         <div className="ml-auto">
-          <Link to="/demo">
-            <Favorites />
-          </Link>
+          <Favorites />
         </div>
       </div>
     </nav>
