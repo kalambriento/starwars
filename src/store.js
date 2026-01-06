@@ -43,6 +43,6 @@ export default function storeReducer(store, action = {}) {
       return { ...store, vehicleList: action.payload };
 
     default:
-      return store; // 🔑 NUNCA lanzar error aquí
+      return store;
   }
 }
