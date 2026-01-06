@@ -4,10 +4,12 @@ import { Favorites } from "./Favorites";
 
 // ... el resto del componente
 
+
 export const Navbar = () => {
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar starwars-navbar">
       <div className="container">
+              
         <Link to="/">
           <img
             src={starWarsLogo}
@@ -16,7 +18,7 @@ export const Navbar = () => {
           />
         </Link>
 
-        <div className="ml-auto">
+        <div className="favorites-right">
           <Favorites />
         </div>
       </div>

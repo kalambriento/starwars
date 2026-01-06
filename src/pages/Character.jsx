@@ -44,24 +44,33 @@ export const Character = () => {
   }, []);
 
   return (
-  <>
-    <h2 className="mb-3">Characters</h2>
+    <>
+      <h2 className="mb-3">Characters</h2>
 
-    <div className="d-flex flex-nowrap overflow-auto gap-3 py-5">
-      {store.characterList.map((character) => {
-       
-        return (
-          <Card
-            key={character.itemId}
-            name={character.name}
-            category="character"
-            itemId={character.itemId}
-            imageSrc={IMAGE_MAP[character.name] || MOCK_IMG_SRC}
-            toggleFavorite={() => {}}
-          />
-        );
-      })}
-    </div>
-  </>
-);
+      <div className="d-flex flex-nowrap overflow-auto gap-3 py-5">
+        {store.characterList.map((character) => {
+          const uniqueId = `character-${character.itemId}`;
+
+          return (
+            <Card
+              key={uniqueId}
+              name={character.name}
+              category="character"
+              itemId={uniqueId}
+              imageSrc={IMAGE_MAP[character.name] || MOCK_IMG_SRC}
+              onFavorite={() => dispatch({
+                type: "add_favorite",
+                payload: {
+                  name: character.name,
+                  category: "character",
+                  id: uniqueId,
+                },
+              })
+              }
+            />
+          );
+        })}
+      </div>
+    </>
+  );
 };

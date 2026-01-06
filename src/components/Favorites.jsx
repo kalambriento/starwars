@@ -34,7 +34,7 @@ export const Favorites = () => {
                 onClick={() =>
                   dispatch({
                     type: "remove_favorite",
-                    payload: { name: item.name },
+                    payload: { id: item.id },
                   })
                 }
               >

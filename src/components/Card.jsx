@@ -1,7 +1,15 @@
+import useGlobalReducer from "../hooks/useGlobalReducer";
 import { Link } from "react-router-dom";
 
 
+
 export const Card = ({ imageSrc, name, onFavorite, category, itemId }) => {
+  const { store, dispatch } = useGlobalReducer();
+
+  const isFavorite = store.favoriteList.some(
+    (item) => item.id === itemId
+  );
+
   return (
     <>
       <div className="card" style={{ minWidth: "18rem" }}>
@@ -27,9 +35,26 @@ export const Card = ({ imageSrc, name, onFavorite, category, itemId }) => {
 
             <button
               className="btn btn-outline-warning"
-              onClick={onFavorite}
+              onClick={() => {
+                if (isFavorite) {
+                  console.log("REMOVE FAVORITE:", name);
+                  dispatch({
+                    type: "remove_favorite",
+                    payload: { id: itemId },
+                  });
+                } else {
+                  console.log("ADD FAVORITE:", name);
+                  onFavorite && onFavorite();
+                }
+              }}
             >
-              <i className="fa-regular fa-bookmark"></i>
+              <i
+                className={
+                  isFavorite
+                    ? "fa-solid fa-bookmark"
+                    : "fa-regular fa-bookmark"
+                }
+              ></i>
             </button>
 
           </div>

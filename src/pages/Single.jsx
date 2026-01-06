@@ -23,8 +23,8 @@ export const Single = () => {
     .then((data) => {
       setItem(data);
     })
-    .catch(() => {
-      setItem(null);
+    .catch((error) => {
+      console.error("Error cargando item:", error);
     })
     .finally(() => {
       setLoading(false);
@@ -35,7 +35,7 @@ export const Single = () => {
     return <h3 className="text-center mt-5">Cargando...</h3>
   }
 
-  if (!item) {
+  if (!loading && !item) {
     return (
       <div className="container text-center mt-5">
         <h3>Elemento no encontrado</h3>

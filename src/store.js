@@ -9,38 +9,40 @@ export const initialStore = () => {
 };
 
 export default function storeReducer(store, action = {}) {
-   switch (action.type) {
-    case "add_task":
-      const { id, color } = action.payload;
+  switch (action.type) {
+    case "add_favorite": {
+      // Evitar duplicados
+      const exists = store.favoriteList.some(
+        (item) => item.id === action.payload.id
+      );
+
+      if (exists) return store;
 
       return {
         ...store,
-        todos: store.todos.map((todo) =>
-          todo.id === id ? { ...todo, background: color } : todo
+        favoriteList: [...store.favoriteList, action.payload],
+      };
+    }
+
+    case "remove_favorite": {
+      return {
+        ...store,
+        favoriteList: store.favoriteList.filter(
+          (item) => item.id !== action.payload.id
         ),
       };
-    case "add_favorite":
-      const { name } = action.payload;
-      return { ...store, favoriteList: [...store.favoriteList, action.payload], };
-    case "remove_favorite":
-      const favoriteList = store.favoriteList.filter(
-        (item) => item !== action.payload.name
-      );
-      return { ...store, favoriteList: store.favoriteList.filter(
-        (item) => item.name !== action.payload.name
-      ),
-    };
+    }
+
     case "update_characterList":
-      const characterList = action.payload;
-      return { ...store, characterList };
+      return { ...store, characterList: action.payload };
+
     case "update_planetList":
-      const planetList = action.payload;
-      return { ...store, planetList };
+      return { ...store, planetList: action.payload };
+
     case "update_vehicleList":
-      const vehicleList = action.payload;
-      return { ...store, vehicleList };
+      return { ...store, vehicleList: action.payload };
 
     default:
-      throw Error("Unknown action.");
+      return store; // 🔑 NUNCA lanzar error aquí
   }
 }

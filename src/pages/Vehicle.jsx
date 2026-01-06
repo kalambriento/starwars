@@ -59,6 +59,7 @@ export const Vehicle = () => {
               dispatch({
                 type: "add_favorite",
                 payload: {
+                  id: vehicle.uid,
                   name: vehicle.name,
                   category: "vehicle",
                 },

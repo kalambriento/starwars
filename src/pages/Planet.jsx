@@ -48,24 +48,29 @@ export const Planet = () => {
       <h2>Planets</h2>
 
       <div className="d-flex flex-nowrap overflow-auto gap-3 py-5">
-        {store.planetList.map((planet) => (
-          <Card
-            key={planet.uid}
-            name={planet.name}
-            category="planet"
-            itemId={planet.uid}
-            imageSrc={IMAGE_MAP[planet.name] || MOCK_IMG_SRC}
-            onFavorite={() =>
-              dispatch({
-                type: "add_favorite",
-                payload: {
-                  name: planet.name,
-                  category: "planet",
-                },
-              })
-            }
-          />
-        ))}
+        {store.planetList.map((planet) => {
+          const uniqueId = `planet-${planet.uid}`;
+          
+          return (
+            <Card
+              key={uniqueId}
+              name={planet.name}
+              category="planet"
+              itemId={uniqueId}
+              imageSrc={IMAGE_MAP[planet.name] || MOCK_IMG_SRC}
+              onFavorite={() =>
+                dispatch({
+                  type: "add_favorite",
+                  payload: {
+                    name: planet.name,
+                    category: "planet",
+                    id: uniqueId,
+                  },
+                })
+              }
+            />
+           );  
+          })}
       </div>
     </>
   );
